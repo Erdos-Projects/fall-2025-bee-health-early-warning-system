@@ -1,0 +1,1723 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html >
+ <head>
+
+  <title>USDA/NASS QuickStats Ad-hoc Query Tool</title>
+  <META http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  <style type="text/css">
+
+/*Load and needed .css files here */
+		
+@import "/dojo/dojo/resources/dojo.css";
+@import "/dojo/dijit/themes/tundra/tundra.css";
+@import "/dojo/dijit/tests/css/dijitTests.css";
+@import "/dojo/dojox/grid/resources/tundraGrid.css";
+@import "/dojo/dojox/grid/_grid/Grid.css";
+@import "/dojo/dojox/grid/_grid/tundraGrid.css";
+
+
+.tundra .dojoxGridRowOdd {
+background-color:#EEEEEE;
+}
+
+#mainbody {
+  background-color : #ffffff;
+}
+
+#contentbody {
+  background-color : #ffffff;
+  position: absolute;
+    top: 0px;
+    right:22px;
+    left: 22px;
+   bottom: 40px;
+
+}
+
+
+#printbody {
+  background-color : #ffffff;
+  height: 100%;
+
+}
+
+
+#indexbody {
+  background-color : #ffffff;
+  /*height:650px;*/
+
+  position: fixed;
+  /*nice solution but creates horzontal scrholl always.*/ 
+  
+  overflow: auto;
+  top: 87px;
+  right:22px;
+  left: 22px;
+  bottom: 97px;
+}
+
+.report{
+position:relative;
+display:block;
+}
+
+.reportChart{
+display:block;
+float:right;
+position:static;
+margin-right:20px;
+margin-top:60px;
+border: 0px solid #808292;
+}
+.reportTitle{
+padding: 20px;
+text-align : center;
+font-weight : bold;
+color : #646464;
+font-size : 22px;
+text-decoration:underline;
+}
+.reportBody{
+padding: 10px;
+text-align : center;
+font-size : 14px;
+}
+
+#login_signin{
+display:inline;
+position:absolute;
+right:20px;
+top:20px;
+border: 1px solid #808292;
+text-align:right;width:30%;
+}
+
+#header_signin{
+padding:5px; 
+text-align: center;
+color:white;
+background-color: #808292; 
+border: 1px solid #808292;
+font-size : 17px;
+font-weight : bold;
+}
+
+#controls {
+padding : 6px 0;
+}
+#controls button {
+margin-left : 10px;
+}
+
+#header {
+background-color : #ffffff;
+}
+
+#bodyheader {
+  height: 35px;
+  background-color: #336699;
+  margin-top: 0px;
+  margin-left: 10px;
+  
+/*background-image : url('/static/images/header.gif');
+background-repeat : no-repeat;
+
+background-position : bottom left;*/
+
+}
+
+#bodytitle11 { 
+  font-size:25px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:lighter;
+  #position: fixed;
+  position: absolute;
+  vertical-align: middle;
+  margin-left: 10px;
+  height: 35px;
+  color: #fff;
+  
+}
+
+#bodytitle { 
+  font-size:24px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:lighter;
+  #position: fixed;	
+  position: absolute;
+  display:inline;
+  margin-left: 10px;
+  line-height: 27px;
+  padding-top:4px;
+  color: #fff;
+}
+
+
+#leftheaderimg {
+float : left;
+width : 100px;
+}
+#menu {
+background-color : #777b88;
+text-transform : capitalize;
+height : 23px;
+border-bottom : 1px solid transparent;
+border-top : 1px solid transparent;
+}
+#menu div.inactive {
+border-bottom : 1px solid transparent;
+border-top : 1px solid transparent;
+color : #efefef;
+margin-left : 1px;
+margin-right : 1px;
+text-align : center;
+float : left;
+width : 180px;
+}
+#menu div.inactive:hover {
+color : #000;
+}
+#menu ul {
+text-align : center;
+}
+#menu li.inactive {
+border-bottom : 1px solid transparent;
+border-top : 1px solid transparent;
+color : #efefef;
+margin : 0;
+text-align : center;
+width : 200px;
+float : left;
+}
+#menu li.inactive:hover {
+color : #101010;
+}
+.menuLink {
+background : transparent;
+border : medium none;
+color : #f0f0f0;
+font-weight : bolder;
+text-align : center;
+text-decoration : none;
+text-transform : capitalize;
+width : 100%;
+margin-right : 25px;
+margin-left : 25px;
+min-width : 128px;
+}
+.menuLink:hover {
+background-color : #e0e6ff;
+border : 0 solid #101010;
+color : #0f0f0f;
+}
+.textBox {
+color : black;
+background-color : #ffffff;
+border : 1px black;
+font-weight : bolder;
+margin : 0;
+padding : 0 3px;
+padding-top : 2px;
+text-align : left;
+text-decoration : none;
+width : 100%;
+}
+.menuSeparator {
+float : left;
+border-bottom : 1px solid transparent;
+border-top : 1px solid transparent;
+background-color : #777b88;
+color : #f0f0f0;
+font-weight : bolder;
+text-align : center;
+text-decoration : none;
+width : 2px;
+margin-left : 1px;
+margin-right : 1px;
+}
+
+.selectTable {
+background-color : #ffffff;
+padding : 18px;
+padding-right : 0;
+padding-top:0;
+}
+
+.selectHeader {
+clear : left;
+margin:0;
+padding:0;
+}
+
+.selectGroup {
+padding-left : 0px;
+min-width : 120px;
+display : block;
+float : left;
+text-align : left;
+margin-left : 10px;
+margin-right : 5px;
+font-size : 12px;
+}
+
+.selectLabel {
+position : relative;
+font-weight : bold;
+padding : 1px;
+font-size : 12px;
+}
+
+.contextHelp {
+  font-weight : normal;
+border:2px solid #336699;
+z-index: 1;
+position:relative;
+width:750px;
+height:350px;
+padding:5px;
+overflow:auto;
+background:#FFF;
+display:none;
+}
+.selectLabelMenu {
+display : inline;
+position : absolute;
+right : 0;
+font-weight : normal;
+padding : 5px;
+font-size : 9px;
+}
+
+.selectOption {
+font-size : 11px;
+/*font-weight: bold;*/
+}
+
+p.download {
+  margin:0px;
+  margin-top:10px;
+  border: 0px solid #000;
+  display:inline;
+  text-align:center;
+  position : absolute;
+  right : 0px;
+  height:20px;
+  font-weight : normal;
+  padding-top : 4px;
+  padding-right : 10px;
+  font-size : 12px;
+}
+
+a.download{
+   text-decoration:none;
+   color:#336699;
+}
+
+.search{
+float:right;
+display:inline-block;
+border: 0px #A00 solid;
+padding:5px;
+
+}
+
+#footer {
+background-color : #ffffff;
+color : #46494c;
+text-align : center;
+border-top : 1px solid #46494c;
+width : 95%;
+padding : 4px 0;
+margin : 0;
+}
+h2.title {
+background-color : #ffffff;
+color : #46494c;
+text-align : center;
+border-top : 1px solid #46494c;
+border-bottom : 1px solid #46494c;
+padding : 4px 0;
+width : 95%;
+margin : 0;
+}
+.message {
+  color : #cc4444;
+  padding : 3px;
+  font-weight : normal;
+  font-size : 12px;
+  position: fixed;
+  left: 240px;
+  top: 95px;
+  right: 321px;
+}
+.error {
+color : #cc4444;
+}
+div.formdiv {
+height : 25px;
+float : right;
+} 
+.subheading {
+  /*width:100%;*/
+  height:23px;
+  border-style:none none solid none ;
+  border-width:0px 0px 1px 0px;
+  /*border-color:#666666*/;
+  border-color:#999;
+  margin-top:10px;
+  margin-left:0px;
+  line-height:23px;
+  font-size:15px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:bold;
+  margin-bottom:10px;
+  width : 440px;
+  display:inline;
+  float : left;
+  z-index : 1;
+ }
+ 
+.chkbox {
+  height:auto;
+  border-style:none none solid none ;
+  border-width:0px 0px 1px 0px;
+  border-color:#666666;
+  margin-left:10px;
+  line-height:23px;
+  font-size:10px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:bold;
+  margin-bottom:10px;
+  width : auto;
+  display:inline;
+  float : left;
+  z-index : 1;
+ }
+
+.lessersubheading {
+  width:100%;
+  height:23px;
+  border-style:none none solid none ;
+  border-width:0px 0px 1px 0px;
+  #border-color:#666666;
+  border-color:#ccc;
+  margin-top:10px;
+  margin-left:30px;
+  line-height:23px;
+  font-size:12px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:bold;
+  margin-bottom:10px;
+  width : 410px;
+  display:inline;
+  float : left;
+  z-index : 1;
+ }
+
+
+.subheading-left {
+left : -10px;
+padding-top : 8px;
+padding-right : 8px;
+display : block;
+position : relative;
+z-index : 1;
+border : 1px solid #000;
+height : 28px;
+text-align : right;
+font-weight : normal;
+color : #646464;
+font-size : 12px;
+text-decoration : none;
+}
+.subheading-left a {
+font-weight : normal;
+color : #646464;
+font-size : 12px;
+text-decoration : none;
+}
+.subheading-left a:hover {
+font-weight : bold;
+color : #000;
+font-size : 14px;
+text-decoration : none;
+}
+.chart {
+position : relative;
+display : inline;
+margin : 0;
+}
+#getChart {
+margin-bottom : 28px;
+}
+#ChartDiv {
+float : left;
+width : 595px;
+height:300px;
+margin : 0;
+left : 0;
+font-size : 13px;
+padding : 0;
+}
+#ChartSubLeft {
+font-weight : bold;
+color : #336699;
+float : left;
+width : 300px;
+text-align : left;
+}
+#ChartSubRight {
+font-weight : normal;
+color : #808080;
+font-size : 10px;
+float : left;
+width : 100px;
+text-align : right;
+}
+#ChartSubRight a {
+font-weight : normal;
+padding-top:10px;
+color : #336699;
+font-size : 10px;
+text-decoration : none;
+}
+#ChartSubRight a:hover {
+font-weight : bold;
+color : #000;
+font-size : 10px;
+text-decoration : none;
+}
+
+#NavHistoryContainer {
+margin-left:12px;
+margin-top:10px;
+font-size : 10px;
+float : left;
+display : inline;
+color : #336699;
+}
+
+#NavHistoryDiv {
+font-weight : normal;
+margin-top:10px;
+color : #808080;
+font-size : 10px;
+float : left;
+display : inline;
+/*margin : 0px;*/
+
+}
+
+#NavHistoryDiv a {
+font-weight : normal;
+color : #336699;
+font-size : 11px;
+font-weight : normal;
+text-decoration : none;
+vertical-align:center;
+}
+
+#NavHistoryDiv a:hover {
+font-weight : normal;
+color : #000;
+font-size : 11px;
+text-decoration : none;
+}
+
+
+#status {
+font-weight : normal;
+color : #FFFFFF;
+font-weight:bolder;
+font-size : 12px;
+float : right;
+position:static;
+padding-left: 20px;
+#padding-left: 0px;
+padding-top: 0px;
+margin-top:5px;
+border : solid 1px;
+border-color: #666666;
+background-color: #666666;
+width:220px;
+margin-right:5px;
+
+}
+
+
+#status_go {
+font-weight : normal;
+color : #green;
+font-size : 12px;
+display : inline;
+float:right;
+
+width:150px;
+padding-left: 10px;
+#padding-left: 10px;
+background-color: #FFFFFF;
+
+}
+
+
+#rCounts {
+font-weight : normal;
+color : #000000;
+font-size : 12px;
+float : right;
+display : inline;
+border-top : solid 1px;
+border-color: #336699;
+width:220px;
+#width:200px;
+padding-left: 15px;
+padding-right: 5px;
+padding-bottom: 8px;
+#padding-bottom: 8px;
+padding-top: 8px;
+#padding-top: 8px;
+background-color: #FFFFFF;
+}
+
+#notice {
+font-weight : normal;
+color : #FFFFFF;
+font-weight:bolder;
+font-size : 12px;
+top:120px;
+right: 0px;
+position:absolute;
+padding-left: 20px;
+#padding-left: 0px;
+padding-top: 0px;
+margin-top:5px;
+border : solid 1px;
+border-color: #666666;
+background-color: #666666;
+width:500px;
+margin-right:5px;
+
+}
+#notice_go {
+font-weight : normal;
+color : #green;
+font-size : 12px;
+display : inline;
+float:right;
+
+width:430px;
+padding-left: 10px;
+#padding-left: 10px;
+background-color: #FFFFFF;
+
+}
+
+#rNotice {
+font-weight : normal;
+color : #000000;
+font-size : 12px;
+float : right;
+display : inline;
+border-top : solid 1px;
+border-color: #336699;
+width:500px;
+#width:480px;
+padding-left: 15px;
+padding-right: 5px;
+padding-bottom: 8px;
+#padding-bottom: 8px;
+padding-top: 8px;
+#padding-top: 8px;
+background-color: #FFFFFF;
+}
+
+#searchHints {
+padding-left:10px;
+color : #336699;
+text-decoration:underline;
+display:inline;
+cursor:pointer;
+}
+
+#closeSearchHints {
+padding-right:10px;
+color : #336699;
+text-decoration:underline;
+display:inline;
+float:right;
+cursor:pointer;
+}
+
+#hintsDiv {
+border:2px solid #336699;
+z-index: 1;
+position:absolute;
+top:72px;
+width:300px;
+height:350px;
+padding:5px;
+overflow:auto;
+background:#FFF;
+display:none;
+}  
+  
+#searchDiv {
+font-weight : normal;
+color : #000000;
+font-size : 12px;
+float : right;
+display : inline;
+padding-right:20px;
+border-color: #336699;
+padding-left: 15px;
+#padding-left: 0px;
+padding-right: 15px;
+padding-bottom: 5px;
+padding-top: 20px;
+background-color: #FFFFFF;
+margin-right:20px;
+margin-top:5px;
+}
+
+#onScreenHelp {
+font-weight : normal;
+margin-top:0px;
+color : #000000;
+font-size : 12px;
+float : right;
+display : inline;
+border: solid 0px;
+margin-left:10px;
+padding: 5px;
+border : solid 0px;
+border-color: #336699;
+
+}
+
+#saveUuid {
+  border:2px solid #336699;
+  z-index: 10;
+  position:absolute;
+  top:150px;
+  right:50px;
+  width:350px;
+  height:200px;
+  padding:15px;
+  overflow:auto;
+  background:#FFF;
+  display:none;
+}  
+  
+
+.nav {
+display : inline;
+}
+
+.map {
+position : relative;
+display : inline;
+margin : 5px;
+}
+
+#getMap {
+position : relative;
+margin-bottom : 28px;
+z-index : -1;
+}
+
+#MapDiv {
+float : left;
+width : 545px;
+bottom : -28px;
+z-index : 1;
+}
+
+#MapSubLeft {
+font-weight : bold;
+color : #808080;
+float : left;
+width : 200px;
+text-align : left;
+}
+
+#MapSubRight {
+font-weight : normal;
+color : #808080;
+font-size : 10px;
+float : left;
+width : 75px;
+text-align : right;
+}
+
+#MapSubRight a {
+font-weight : normal;
+color : #808080;
+font-weight : bold;
+font-size : 10px;
+text-decoration : none;
+}
+
+#MapSubRight a:hover {
+font-weight : bold;
+color : #000;
+font-size : 10px;
+text-decoration : none;
+}
+
+#DataContainer {
+margin : 28px;
+}
+
+.spinner {
+position : absolute;
+z-index : 10;
+padding : 20px;
+}
+
+#menuOuter {
+border : 0 solid #aaa;
+display : block;
+width : 100%;
+background-color : #fff;
+font-weight : bold;
+}
+
+#menu2 {
+border : 0 solid #000;
+position : absolute;
+right : 20px;
+display : inline;
+}
+
+.menu2-button-far-left {
+display : inline;
+float : left;
+}
+
+.menu2-button-far-left:hover {
+display : inline;
+float : left;
+padding-left : 3px;
+}
+
+.menu2-button-left {
+display : inline;
+float : left;
+padding-left : 3px;
+}
+
+.menu2-button-left:hover {
+display : inline;
+float : left;
+padding-left : 3px;
+}
+
+.menu2-button-far-right {
+display : inline;
+float : left;
+}
+
+.menu2-button-far-right:hover {
+float : left;
+}
+.menu2-button-right {
+display : inline;
+float : left;
+}
+
+.menu2-button-right:hover {
+display : inline;
+float : left;
+}
+
+input.menu2Link { 
+  border : 1px solid #fff;
+}
+
+.menu2Link {
+background-color : transparent;
+height : 25px;
+border : 0 solid #a00;
+color : #FFFFFF;
+font-weight : bold;
+text-align : center;
+text-decoration : none;
+text-transform : capitalize;
+padding-right : 5px;
+padding-left : 5px;
+padding-bottom: 0px;
+margin-top:11px;
+#margin-top:12px;
+margin-right:5px;
+bottom:0px;
+}
+.menu2Link:hover {
+background-color : #FFF;
+border : 0 solid #101010;
+color : #336699;
+}
+
+.clearRight { /* generic container (i.e. div) for floating buttons */
+	overflow: hidden;
+	width: 100%;
+    float : right;
+
+}
+
+
+.clear { /* generic container (i.e. div) for floating buttons */
+  padding: 13px; 
+  position: fixed;
+  border-top: 2px solid #336699;
+  margin-left: 10px;
+  right:22px;
+  /*left:22px;*/
+  left:12px; 
+  bottom: 40px;
+  background-color:#FFFFFF;
+}
+
+
+
+ol li {
+list-style-image : none;
+list-style-position : outside;
+list-style-type : none;
+}
+.sm li {
+margin : 0;
+}
+.gl, #bsf a, .nobr, #brs a {
+white-space : nowrap;
+}
+#mbEnd .med {
+white-space : normal;
+}
+.sl, .r {
+display : inline;
+font-weight : normal;
+margin : 0;
+}
+.r {
+font-size : medium;
+}
+h4.r {
+font-size : small;
+}
+.g {
+margin : 1em 0;
+}
+em {
+font-style : normal;
+font-weight : bold;
+}
+em, b {
+text-decoration : inherit;
+}
+.a, cite, .cite, .cite:link {
+color : green;
+font-style : normal;
+}
+
+  </style>
+
+
+ <script type="text/javascript" src="/dojo/dojo/dojo.js" djConfig="parseOnLoad: true, usePlainJson: true,  isDebug:false, popup:false ">
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-15666388-2");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+
+
+
+
+<script type="text/javascript" src="/dojo/dojo/browse.js" >
+</script>
+
+
+
+
+</head>
+
+ <body   class="tundra"  style="background-image:none; padding: 0px 20px 20px 20px; background-color: #3F3E3E;">
+  <div id="mainbody">
+<div id="contentbody">
+  <!-- BEGIN site/header -->
+
+<!--div id="header" -->
+<div id="header" style='background-image: url("/static/images/Header.jpg");height:54px'>
+    <div id="leftheaderimg" align="left" >
+        <img width="388" hspace="0" height="53" alt="National Agricultural Statistics Service" src="/static/images/masthead_left1.gif" usemap="#HEADERMAP" style="opacity:0.8; filter:alpha(opacity=80);">
+        <MAP NAME="HEADERMAP" id="HEADERMAP">
+           <area shape="rect" coords="0,0,58,53" alt="www.USDA.gov" href="https://www.usda.gov" />
+           <area shape="rect" coords="60,0,506,53" alt="www.NASS.USDA.GOV" href="https://www.nass.usda.gov/" />
+        </map>
+    </div>
+    <!--div id="rightheaderimg" align="right">
+        <img width="233" hspace="0" height="53" alt="National Agricultural Statistics Service" src="/static/images/masthead_right.gif" style="opacity:0.4; filter:alpha(opacity=40);">
+    </div-->
+</div>
+
+<!-- <h2 class="title">USDA/NASS QuickStats Ad-hoc Query Tool</h2> -->
+
+<!-- END site/header -->
+
+
+  <div id="bodyheader">
+  <span id="bodytitle" >Quick Stats</span>
+  <div id="menuOuter">
+	
+    <div id="menu2" >
+	
+	<div class="menu2-button-far-left">
+         <div class="menu2-button-right">
+
+           <form id="home" method="Post" action="https://quickstats.nass.usda.gov/" dojoType="dijit.form.Form">
+
+	  <input type="submit" tabindex="0"  value="Home" name="index" onclick="" class="menu2Link">
+            </form>
+	  </div>
+        </div>
+	
+     
+	<div class="menu2-button-far-left">
+         <div class="menu2-button-right">
+
+           <form id="recent_stats" method="Post" action="https://quickstats.nass.usda.gov/recent_stats" dojoType="dijit.form.Form">
+
+	  <input type="submit" tabindex="1"  value="Recent Statistics" name="recent_stats" onclick="" class="menu2Link">
+            </form>
+	  </div>
+        </div>
+	
+     
+	<div class="menu2-button-far-left">
+         <div class="menu2-button-right">
+
+           <form id="developers" method="Post" action="https://quickstats.nass.usda.gov/api" dojoType="dijit.form.Form">
+
+	  <input type="submit" tabindex="2"  value="developers" name="developers" onclick="" class="menu2Link">
+            </form>
+	  </div>
+        </div>
+	
+     
+	<div class="menu2-button-far-left">
+         <div class="menu2-button-right">
+
+           <form id="help" method="Post" action="https://quickstats.nass.usda.gov/tutorials" dojoType="dijit.form.Form">
+
+	  <input type="submit" tabindex="3"  value="Help" name="help" onclick="" class="menu2Link">
+            </form>
+	  </div>
+        </div>
+	
+     
+
+
+  </div>
+    
+  </div>
+  </div>
+  <br clear="all">
+    
+
+
+<script type="text/javascript">
+var gridLoaded=0;
+var gridNode=new Object(); 
+
+var uuid="5B623702-D369-351F-B503-512A24348B8C"; 
+
+function init(){
+   viewportheight = document.documentElement.clientHeight;
+   dojo.byId("DataContainer").style.height = viewportheight-270;//300; //hack for IE6
+   hashToUuid();
+   
+   if(gridLoaded==0){
+       getGrid("Data");
+   } else {
+       gridNode.resize();
+   }  
+}
+
+dojo.addOnLoad(init);
+
+
+function backButton() {
+ //var dr = document.referrer;
+ // if (dr) {
+ //      history.go(-1);
+ //  }else{
+ //     this.location.replace("https://quickstats.nass.usda.gov/#"+uuid);
+ //  }
+
+ gridLoaded=0;
+ window.history.go(-1);
+
+}
+
+
+function hashToUuid() {
+  var hash = document.location.hash;
+  var lg = hash.length;
+  if( lg > 1){
+      uuid = hash.substr(1,lg);
+  }
+}
+
+function getElementsByName_iefix(tag, name) {
+     var elem = document.getElementsByTagName(tag);
+     var arr = new Array();
+     for(i = 0,iarr = 0; i < elem.length; i++) {
+          att = elem[i].getAttribute("name");
+          if(att == name) {
+               arr[iarr] = elem[i];
+               iarr++;
+          }
+     }
+}
+
+function removeFromNavHistory(dvNum){
+	var dvCount=document.getElementById("NavHistoryDiv").getElementsByTagName("div").length -1 ;
+	for (dvNum;dvNum<=dvCount;dvNum++){
+		var pDiv=document.getElementById("NavHistoryDiv");		
+ 		var rmDiv=document.getElementById("nvTxt_"+dvNum);
+		pDiv.removeChild(rmDiv);
+	}
+}
+
+function addToNavHistoryDiv(field,url){
+	var div = document.getElementById('NavHistoryDiv');
+	var dvCount=div.getElementsByTagName("div").length;
+	if (dojo.query("[name='nvName_"+field+"']").length > 0){
+		return 1;	
+	}
+	txtDiv = document.createElement('div');
+	newlink = document.createElement('a');
+ 	tn = document.createTextNode(field);
+ 	newlink.appendChild(tn);
+	var ndvCount=dvCount+1;
+ 	newlink.setAttribute('href', "javascript:reEncode('"+url+"','"+field+"');removeFromNavHistory("+ndvCount+")"); 
+ 	arrow = document.createTextNode("->");
+ 	
+	txtDiv.setAttribute('id','nvTxt_'+dvCount);
+	txtDiv.setAttribute('name','nvName_'+field);
+	txtDiv.className='nav';
+	if (dvCount != 0){
+		txtDiv.appendChild(arrow);
+	}
+	txtDiv.appendChild(newlink);
+	div.appendChild(txtDiv);
+}
+
+function tester(field){
+	alert(field);
+}
+
+
+function Search() {
+  refreshMessage('');
+  spinner('show','Searching Data, Please wait.');
+  dojo.xhrPost( 
+	       { 
+	           url: '/data/search', 
+			   form: "search",
+			   timeout: 50000,
+			   handleAs: "json",
+			   load: function(response, ioArgs) { 
+				   if(ioArgs.xhr.status == 204 || ioArgs.xhr.status == 1223 ) { 
+					 // 204 indicates no content in IE it is 1223
+					 //message="Search produced no results, please try again.";
+					 refreshMessage("Search produced no results, please try again.");
+					 spinner('hide','');
+				   } else {
+					 uuid=response;
+					 getGrid("Data");
+					 
+				   }
+				   return 1;
+		      },
+		      error: function(response, ioArgs) { // \x{2783}
+			      // console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+			      if(ioArgs.xhr.status == 204) { 
+				    message=response;
+				    alert(message+" IN ERROR: "+ioArgs.xhr.status);
+				    spinner('hide','');
+			      } 
+			      return response; 
+			  }
+	       }
+		  );
+}
+
+
+function addEncode(args,columnName) {
+  dojo.xhrPost( { 
+    url: '/uuid/encode/'+args, 
+	timeout: 500000,
+	handleAs: "json",
+	load: function(response, ioArgs) {
+		uuid=response;
+		parent.location.hash=uuid;
+
+		//	console.debug(uuid);
+		addToNavHistoryDiv("Pivot: "+pivot.name,uuid);
+		getGrid("Data"); 
+		
+	},
+	error: function(response, ioArgs) { // \x{2783}
+		//	console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+		return response; 
+    }
+
+    });
+}
+
+
+function pivotGrid(evt) {
+ 
+  if(pivot_column == 'year') {
+    pivot_column='string(year)';
+  }
+  pivot.column="pivot="+pivot_column;
+
+  var url=uuid+"/add?"+pivot.column;
+  addEncode(url,name);
+
+  return true;
+}
+
+var pivot_column="";
+var pivot= new Object;
+
+function setColumn(evt) {
+ // called when right click on the grid header 
+ //  	
+  var cell=evt.cellIndex;
+  var label=this.layout.cells[cell].cell_ref.label;
+  var name=this.layout.cells[cell].name;
+  pivot.name=this.layout.cells[cell].name;
+  
+  pivot_column=this.layout.cells[cell].cell_ref.column[0];
+  
+  var data=dijit.byId('Data');
+  var dataStore=data.store;
+  var countPivot=0;
+  //var test=new Object;
+
+  changePivotMenuItem();	       
+  if(pivot_column.match(/estimate/) || this.layout.cells[cell].cell_ref.column.length != 1 ) {
+    //? do nothing  
+  } else {  
+     changePivotMenuItem(name);
+  }
+  
+  return true;
+}
+
+
+function changePivotMenuItem(label) {
+  var pivot_menu_item=dijit.byId('pivot_menu');
+  if(label) {
+    pivot_menu_item.disabled=false;
+    pivot_menu_item.attr('label','Pivot by '+label);
+
+  } else {
+    pivot_menu_item.attr('label',' ');
+    pivot_menu_item.disabled=true;
+  }
+  //pivot_menu_item.label='Pivot by '+pivot_column;
+  //grid_menu.startup();
+  
+}
+
+
+function gridMenu(layout) {
+// make the grid's menu ...  
+//	
+  if(dijit.byId('gridMenuID')) {
+    return dijit.byId('gridMenuID');
+  }
+  var grid_menu=new dijit.Menu({ targetNodeIds:["grid_menu"], id:"gridMenuID"});
+  grid_menu.addChild(new dijit.MenuItem({id:'pivot_menu',label:"Pivot", onClick: function(){ pivotGrid() }, iconClass:'dijitEditorIcon dijitEditorIconCopy'}));
+  grid_menu.addChild(new dijit.MenuSeparator({id:'menu_separator', label: "show/hide columns"}));
+  grid_menu.addChild(new dijit.MenuItem({id:'show_menu',label:"Show/Hide Columns" }));  
+  grid_menu.addChild(new dojox.widget.PlaceholderMenuItem({label:"GridColumns"}));
+  grid_menu.startup();
+
+  return grid_menu;  
+}
+
+
+function getGrid(gridId) {
+// display data in grid with virtual pagingnation ...
+//
+    var gridContainer=gridId+"Container";
+    var rowCnt;
+    spinner('hide');
+    spinner('show','Loading Data, Please Wait ... ');
+    
+    // use QueryReadStore to handle hug data set ...
+    var model = new dojox.data.QueryReadStore({url:'/grid/grid_data/'+uuid}, 
+				                              {requestMethod:'post'},
+						                      {urlPreventCache:true}
+                                             );
+    // POST data to Grid
+    dojo.xhrPost( 
+	{ 
+	    url: '/grid/grid_layout/'+uuid, 
+	    timeout: 500000,
+	    handleAs: "json",
+	    load: function(response, ioArgs) {
+	        var view=response.layout; 
+            //var layout=[view];
+	        var layout=new Array();
+		    layout = view;
+	        var totalRowCounts = response.rowcounts;
+		    rowCnt=totalRowCounts; 
+		
+		    if (response.message)  {
+			  if (rowCnt > 0) {
+			    refreshMessage(response.message);
+			  } else {
+			    refreshMessage('No record found ... ');
+			  }
+		    }
+
+		    //var gridNode=dijit.byId(gridId); 
+		    gridNode=dijit.byId(gridId); 
+		
+		    if(gridNode) {
+			  gridNode.destroy();
+		    }
+
+	        // ...		
+		    gridNode = new dojox.grid.DataGrid({
+                  title: gridId,
+                  id: gridId,
+                  store: model,
+                  structure: layout,
+                  //columnReordering:'true', 
+                  headerMenu: gridMenu(layout),
+                  onCellDblClick: refreshVisuals,
+                  onHeaderCellContextMenu: setColumn,
+                  loadingMessage: "Loading ... Please wait!",
+                  errorMessage:"Loading ... Error!",
+                  rowsPerPage:30,
+                  clientSort: false,
+                  rowSelector: '15px'
+		    });
+	
+		    dojo.byId(gridContainer).appendChild(gridNode.domNode);
+		    gridNode.startup();
+		
+		    spinner('hide');
+		    updateRowCount(rowCnt);
+		    toggleChartMap(totalRowCounts); 
+		
+	 	    return 1;
+	  },
+      error: function(response, ioArgs) { 
+	      spinner('hide');  
+	      searcher('hide');  
+	      return response; 
+	  }
+
+	});
+    
+    addToNavHistoryDiv('Data',uuid);
+
+    gridLoaded=1;
+}
+
+
+function refreshMessage(message) {
+// print out the message on result page ...
+//	
+    var msgDiv = document.getElementById('message');
+    msgDiv.innerHTML=message;
+    return true;
+}
+
+
+function refreshVisuals(evt){
+// get the value of a cell then re-reencode new uuid for a new result
+//	
+   var dataStore=this.store;
+   var rowCnt=this.rowCount;
+   if (rowCnt>0){
+ 		var cell=evt.cellIndex;
+		var row=evt.rowIndex;
+ 		var label=this.layout.cells[cell].cell_ref.label;
+ 		var name=this.layout.cells[cell].name;
+		var field=this.layout.cells[cell].field;
+		var column=this.layout.cells[cell].cell_ref.column;
+		var params='';
+		
+		for( var ii=0 ; ii<column.length; ii++ ){
+		  var value = dataStore.getValue(this.getItem(row),column[ii]);
+		  if (ii == 0){
+		    params=params+column[ii]+"="+value;
+		  }else {
+		    params=params+'&'+column[ii]+"="+value;
+		  }
+		}
+
+		var url=uuid+"?"+params;  
+		reEncode(url,name);
+   } else {
+        refreshMessage("Reached the end ... ")
+   }
+} 
+
+
+function reEncode(args,columnName) {
+
+  dojo.xhrPost( { 
+		url: '/uuid/encode/'+args, 
+		timeout: 500000,
+		handleAs: "json",
+		load: function(response, ioArgs) {
+			uuid=response;
+			//console.debug(uuid);
+			addToNavHistoryDiv(columnName,uuid);
+			getGrid("Data"); 
+			//
+		},
+		error: function(response, ioArgs) { // \x{2783}
+			//console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+			return response; 
+		}
+		});
+}
+
+
+function Uuid(callback) {
+dojo.xhrPost( { 
+		url: '/uuid/encode', 
+		form: "navigation",
+		timeout: 500000,
+		handleAs: "json",
+		load: callback,
+		error: function(response, ioArgs) { // \x{2783}
+			//console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+			return response; 
+		}
+	});
+}
+
+function UuidToParams(uuid) {
+dojo.xhrPost( 
+	{ 
+		url: '/uuid/decode/'+uuid, 
+		form: "navigation",
+		timeout: 500000,
+		handleAs: "json",
+		load: function(response,ioArgs) {
+			for(var key in response) {
+				if (document.getElementById(key)){
+				clear_params(key);
+				}
+				for(var ii=0;ii<response[key].length;ii++) {
+				createParamInputs(key,response[key][ii],'navigation');
+				}
+			}
+			
+			return 1;
+		},
+		error: function(response, ioArgs) { // \x{2783}
+			//console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+			return response; 
+		}
+	});
+}
+
+function getChart(uuid,chartID) {
+dojo.xhrGet( 
+	{ 
+		url: 'data/test_chart/'+uuid, 
+		timeout: 50000,
+		handleAs: "xml",
+		load: function(response,ioArgs) {
+			var chartDiv=dojo.byId(chartID);
+			var img=document.createElement('img');
+			img.setAttribute("src","data/test_chart/blah.png");
+			img.setAttribute("usemap",uuid);
+			chartDiv.appendChild(img);
+			var map=document.createElement('map');
+			map.setAttribute("name",uuid);
+			var root=response.getElementsByTagName(uuid);
+			return 1;
+		},
+		error: function(response, ioArgs) { // \x{2783}
+			//console.error("HTTP status code: ", ioArgs.xhr.status); // \x{2786}
+			return response; 
+		}
+	});
+}
+
+function clearData() {
+	dojo.byId("gridContainer2").innerHTML="";
+}
+
+function showDiv(chartID) {
+   var div=dojo.byId(chartID);
+   div.style.display='';
+ 
+    dojo.fadeIn({ node:chartID, 
+                 delay:300,
+                 duration:3000
+             }).play();
+}
+ 
+function hideDiv(chartID) {
+   var div=dojo.byId(chartID);
+   dojo.fadeOut({ node:chartID, 
+          delay:300,
+          duration:3000,
+          onEnd:function(){
+          div.style.display='none';
+                }
+             }).play();
+       
+}
+
+function spinner(state,txt){
+
+  var dv=document.getElementById('spinner');
+  var message=document.getElementById('spinner_message');
+  if (state=='show'){
+    if( message=='' ) {
+      txt="Loading Data, Please Wait";
+    }
+    message.innerHTML=txt;	
+    dv.style.visibility="visible";
+    
+
+  }else{
+    message.innerHTML="";
+    dv.style.visibility="hidden";
+  }
+}
+
+function searcher(state) {
+	var dv=document.getElementById('searcher');	
+	if (state=='show'){
+		dv.style.visibility="visible";
+	}else{
+		dv.style.visibility="hidden";
+	}
+}
+
+function uutest(){
+	UuidToParams("4FD603A4-CF6E-30FB-8EAA-FE5F461AB15A");
+}
+
+function changeSelects(){
+	// turn any non-dojoType selects into widgets programatically:
+	dojo.query("select").forEach(function(n){
+		if(!dijit.byNode(n)){
+			var foo = new dijit.form.MultiSelect({
+			},n);
+		}
+	});
+}
+
+function download() {
+   window.location.href="/data/spreadsheet/"+uuid+".csv";
+}
+
+function pdf() {
+   alert("Creating your PDF may take a moment, please be patient");
+   window.location.href="/data/pdf/"+uuid+".pdf/noreport/";
+}
+
+function printable() {
+   window.location.href="/data/printable/"+uuid;
+}
+
+function map() {
+   var name="map"+uuid.replace(/-/g,"_");
+   var url="/data/maps/"+uuid;
+   window.open(url,name);
+}
+
+function updateRowCount(rowCnt){
+   //console.debug(rowCnt);
+   var div = document.getElementById('rowCount');
+   var txt = document.createTextNode(' ('+rowCnt+' rows)');
+   div.replaceChild(txt, div.childNodes[0]);
+}
+
+function toggleChartMap(count) {
+    var spChart = document.getElementById("span_chart");
+    var spMap = document.getElementById("span_map");
+
+	if ( count > 50000 ) {  //165536)
+            //spChart.parentNode.removeChild(spChart);
+			//spMap.parentNode.removeChild(spMap);
+            spChart.style.visibility = "hidden"; 
+			//spMap.style.visibility = "hidden";		    
+	} 
+	else  {
+            spChart.style.visibility = "visible"; 
+			//spMap.style.visibility = "visible";
+	}
+}
+
+
+window.onresize=resizeWin;
+
+function resizeWin(){
+// reload data-grid when resizing window 
+// call getGrid("Data") or init() again
+
+   init();
+}
+
+
+function chart() {
+   var name="Chart"+uuid.replace(/-/g,"_");
+   var url="/data/charts/"+uuid;
+   window.open(url,name);
+}
+
+function tablelens() {
+   var name="Chart"+uuid.replace(/-/g,"_");
+   var url="/vizserver/"+uuid;
+   window.open(url,name);
+}
+
+function toggleSaveDialog() {
+
+  var div=document.getElementById('saveUuid');
+
+  if(div.style.display == 'block') {
+    div.style.display='none';
+  } else {
+    div.style.display='block';
+  }
+}
+
+
+
+function saveUuid() {
+ 
+var st=dijit.byId("fileName").state;
+if (st != "Error"){
+  var filename=document.getElementById('fileName').value;
+   if(filename=='') {
+     filename="5B623702-D369-351F-B503-512A24348B8C";
+   } 
+    window.location.href="/save/5B623702-D369-351F-B503-512A24348B8C/"+filename+".url";
+     toggleSaveDialog();
+}else{
+alert('Invalid File Name, Please Correct');
+}
+}
+
+</script>
+
+
+<div id="indexbody" style="border:0px solid red;">
+
+<div id="saveUuid" >
+<div style="float:right;"><a href="javascript:toggleSaveDialog();">Close(x)</a></div> 
+<br>
+<p>Please specify a name for this data set:</p>
+
+<p> Name: <input id="fileName" dojoType="dijit.form.ValidationTextBox" regExp="[\w\s]+"  invalidMessage="Invalid Non-Space Text." size="24" name=NAME value="" ><br>
+
+<div style="display:inline; float: right;"><button id="saveButton" value="Next" onclick="javascript:saveUuid()">Next</button><button id="saveCancel" value="Next" onclick="javascript:toggleSaveDialog();">Cancel</button></div></div>
+
+<form onsubmit="javascript:Search();return false;" action=""  id="search" >
+<div id="spinner" style="display:inline;visibility:hidden;" class="selectGroup"><div id="spinner_message" style="display:inline;"></div> <img src='/static/images/indicator.gif'/></div>
+<div id="message" class="message"></div>
+</form>
+
+<div style="clear: both;"></div>
+
+<!--
+
+-->
+
+  <div id="NavHistoryContainer">Navigation History:&nbsp;</div>
+  <div id="NavHistoryDiv" > &nbsp; </div>
+
+
+
+  <p id="rowCount2" class="download"> 
+	
+		<a class= download href="javascript:toggleSaveDialog();">Save</a>&nbsp;::&nbsp;	
+		<a class="download" href="javascript:download();" >Spreadsheet</a>&nbsp;::&nbsp;
+		<a class="download" href="javascript:printable();" >Printable</a>&nbsp;::&nbsp;
+
+		
+		<span id="span_map">
+		<a class="download" id="a_map" href="javascript:map();" >Map</a>&nbsp;::&nbsp;
+		</span>
+		
+
+		
+		
+
+		<span style="padding-left:10px;"  id="rowCount">()</span>
+  </p>
+
+  <div style="clear: both;"><br></div> <!--for IE6-->
+
+  <div id="DataContainer" dojoType="dijit.layout.ContentPane" style="position:fixed; right: 22px; left: 32px; bottom: 106px; top: 159px;#top:127; padding:3px;margin:0px;border: 1px solid #8F8F8F; "><span id="grid_menu"></span></div>	
+
+ <div class="clear"> 
+ <div style="display: inline;float:left"> 
+  <!--button id="submit001" dojoType="dijit.form.Button" name="SUBMIT"  onClick="window.location.href='/5B623702-D369-351F-B503-512A24348B8C';" >Back</button-->
+  <!--button id="submit001" dojoType="dijit.form.Button" name="SUBMIT"  onClick="location.replace('/5B623702-D369-351F-B503-512A24348B8C');" >Back</button-->
+  <button id="submit001" dojoType="dijit.form.Button" name="SUBMIT"  onClick="javascript:backButton();" >Back</button>
+ </div>
+ <div style="display: inline;float:right"> 
+ <p style="margin: 10px;"> 
+  <a href=/src/glossary.pdf> Abbreviations and Symbols</a> 
+ </div>
+</div>
+
+</div>
+
+    <!-- BEGIN site/footer -->
+<!--div id="copyright">&copy; 2008 National Agricultural Statistics Service</div--><!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
+<script async type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=USDA" id="_fed_an_ua_tag"></script>
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-9021651-8', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+<script type="text/javascript">
+/*<![CDATA[*/
+(function() {
+var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+sz.src = '//siteimproveanalytics.com/js/siteanalyze_10240.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+})();
+/*]]>*/
+</script>
+<!-- END site/footer -->
+
+
+</div>
+
+
+
+ </div>
+ </body>
+</html>
