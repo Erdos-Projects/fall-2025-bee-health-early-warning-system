@@ -4,17 +4,17 @@ This document outlines the evaluation strategy, model selection process, and fin
 
 ## A. The Evaluation Plan
 
-The evaluation plan was designed to prevent the most common pitfall in time-series data: data leakage. The entire strategy is built around simulating a real-world deployment scenario.
+The evaluation plan was designed to prevent the most common pitfall: data leakage. The entire strategy is built around simulating a real-world deployment scenario.
 
 * **Unit of Analysis & Data Splits:**
 
   * The unit of analysis (what we want to predict) is a *single hive inspection*.
 
-  * However, multiple inspections belong to the same hive, meaning these rows are **not independent**. A model could easily "memorize" a hive's typical behavior.
+  * However, multiple inspections belong to the same hive, meaning these rows are **not independent**. A model could easily memorize a hive's typical behavior.
 
   * To solve this, a **Grouped Split Strategy** (`GroupShuffleSplit` from `Generate_TrainTestSplit.ipynb`) was used.
 
-  * **`HiveID`** was used as the grouping variable. This ensures that **all inspections for a given hive** are placed *entirely* in either the training set OR the test set, but *never* in both.
+  * **`HiveID`** was used as the grouping variable. This ensures that all inspections for a given hive are placed entirely in either the training set OR the test set, but never in both.
 
 * **Justification for Split Strategy:**
 
@@ -52,11 +52,13 @@ A "baseline-then-experiment" approach was used, starting with a simple model and
 
   * The **F1-Score** was also used as a key metric in the final evaluation, as it balances precision and recall for the positive 'Healthy' class.
 
+  * The plain **accuracy** was used as an additional metric in the final evaluation as it provides a general overall performance of the model.
+
 * **Justification for Final Chosen Model:**
 
   * The **`XGBClassifier`** (`final_results.ipynb`) was selected as the final model.
 
-  * During the hyperparameter tuning phase (`modeling_experiments.ipynb`), the `XGBClassifier` (tuned with `RandomizedSearchCV`) yielded the strongest `ROC-AUC` score in cross-validation.
+  * During the hyperparameter tuning phase (`modeling_experiments.ipynb`), the `XGBClassifier` (tuned with `RandomizedSearchCV`) yielded the strongest `ROC-AUC`, `F1-score`, and`Accuracy` and  scores in cross-validation.
 
   * This indicates it was the most effective model at separating the two classes, which directly aligns with the project goal. It provided the best balance of performance and ability to generalize to unseen hives.
 
