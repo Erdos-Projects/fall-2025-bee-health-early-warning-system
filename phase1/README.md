@@ -1,7 +1,6 @@
 # Study of National Quarterly Colony Collapse 
 
-
-The cause of colony collapse is complex and not well understood. Leveraging data on colony collapse, the presence of pathogens and pests, and climate data we investigate patterns in colony collapse. 
+The cause of colony collapse is complex and not well understood. Leveraging data on colony collapse, the presence of pathogens and pests, and climate data we investigate patterns in colony collapse on a national scale. 
 
 ## Goal
 Develop a data-driven early warning system that will indicate when colonies are at a high risk of collapse 
@@ -13,7 +12,7 @@ We created a comprehensive dataset for analyzing bee health by integrating four 
 * United States Department of Agriculture National Agricultural Statistics Service [(USDA NASS) survey data, ](data/raw/F5B59C51-6C83-3F5B-8117-CD7D3D157B1C.csv) - county level counts of colony collapse on a quarterly basis. The survey also includes observations of some risk factors, such as Verroa mites or suspected pesticide harm. 
 * [Animal and Plant Health Inspections Service inpection data](data/raw/aphis_state_year_data.csv) - state-level results of hive inspections and testing for pathogens 
 * [Bee Informed Project](/data/raw/LMS2022_States_Loss.csv) - state level colony loss data which supplements missing data from the USDA NASS
-* [National Oceanic and Atmospheric Administration (NOAA)](data/interim/normalized_weather_adv_data.csv) weather data for the United States for 2015-June 2025. 
+* [National Oceanic and Atmospheric Administration (NOAA)](data/raw/HI_2015.csv) weather data for the United States for 2015-June 2025. 
 
 ![Deformed Wing Virus in September -  Map of the US](image.png)
 
@@ -26,7 +25,7 @@ We created a comprehensive dataset for analyzing bee health by integrating four 
 
 **Feature Creation and Data Aggregation** 
 * [Varroa_Pathogen_data.ipynb](notebooks/Varroa_Pathogen_data.ipynb) 
-* [Weather Related Features - Summarized Quarterly ](data/interim/normalized_weather_adv_data.csv)
+* [Weather Related Features - Summarized Quarterly ](notebooks/weather_adv_data.ipynb)
 * [Final Data Aggregation](notebooks/final_aggregation.ipynb)
 
 **Modelling and Evaluation**

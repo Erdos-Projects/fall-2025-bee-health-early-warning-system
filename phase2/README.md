@@ -2,7 +2,6 @@
 
 The challenges from Phase 1 directly motivated our pivot to Phase 2: a "bottom-up" approach to solve the problem at the scale where interventions actually happen—the individual hive. Our new objective is to create a tactical, hive-level model that predicts hive health (healthy/unhealthy) using highly localized weather data from the past one to two weeks. This approach is more robust for two key reasons: first, it aligns directly with the granular, local data that is available, and second, it allows us to use a standardized definition of "hive health" as established in recent research (Lower et al., 2024). This model provides a more immediate, actionable tool for beekeepers and serves as a more solid foundation for eventually understanding the broader, national-level crisis.
 
-
 ## Data 
 See [Data Inventory](data/raw/data_inventory.md) for full details on data sets. 
  

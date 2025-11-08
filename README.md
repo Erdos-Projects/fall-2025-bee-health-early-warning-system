@@ -16,3 +16,5 @@ See the [Phase 1](/phase1/) portion of this repository for the full investigatio
 In this phase, we take a "bottom-up" approach to solve the problem at the scale where interventions actually happen—the individual hive. Using localized weather data and a standardized checklist of health indicators, we model the risk of a healthy hive becoming unhealthy.  
 
 See the [Phase 2](/phase2/) portion of this repository for the full investigation. 
+
+The full summary of this project can be found [here.](presentations/Executive%20Summary%20.pdf)
